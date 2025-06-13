@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "servers": {
+      "paperless-framework": {
+        "command": "node", 
+        "args": ["path/to/src/mcp-framework-standalone/dist/simplified-server/index.js"],
+        "env": {
+          "OPENAI_API_KEY": "your-openai-api-key"
+        }
+      }
+    }
+  }
+}
