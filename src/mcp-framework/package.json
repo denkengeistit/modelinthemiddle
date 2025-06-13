@@ -1,0 +1,35 @@
+{
+  "name": "@modelcontextprotocol/mcp-framework",
+  "version": "0.1.0",
+  "description": "Multi-layered MCP framework with Model in the Middle architecture",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start:simplified": "node dist/simplified-server/index.js",
+    "start:model-bridge": "node dist/model-bridge/index.js",
+    "dev": "tsc --watch & node --experimental-loader ts-node/esm src/simplified-server/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0",
+    "zod-to-json-schema": "^3.22.0",
+    "axios": "^1.6.0",
+    "openai": "^4.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "tool-use",
+    "framework"
+  ],
+  "license": "MIT"
+}
