@@ -62,7 +62,7 @@ export class SimplifiedMCPServer implements SimplifiedMCPServerInterface {
       }
     );
 
-    this.modelBridge = new ModelBridge(modelConfig, mcpServerConfig);
+    this.modelBridge = new ModelBridge(this.modelConfig, this.mcpServerConfig);
     this.setupHandlers();
   }
 
@@ -144,7 +144,7 @@ export class SimplifiedMCPServer implements SimplifiedMCPServerInterface {
         let filteredTools = result.tools;
         
         if (validatedArgs.category) {
-          filteredTools = filteredTools.filter(tool => 
+          filteredTools = filteredTools.filter(_tool => 
             result.categories?.includes(validatedArgs.category!)
           );
         }

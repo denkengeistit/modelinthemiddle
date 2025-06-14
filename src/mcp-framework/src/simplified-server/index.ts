@@ -11,7 +11,7 @@ dotenv.config();
 const modelConfig: ModelBridgeConfig = {
   modelProvider: 'openai',
   modelName: 'gpt-4o-mini',
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
   temperature: 0.7,
   maxTokens: 1000
 };
@@ -21,9 +21,9 @@ const mcpServerConfig: ComplexMCPServerConfig = {
   command: 'node',
   args: ['../everything/index.js', 'stdio'],
   cwd: process.cwd(),
-  env: {
-    ...process.env
-  }
+  env: Object.fromEntries(
+    Object.entries(process.env).filter(([_, v]) => v !== undefined)
+  ) as Record<string, string>
 };
 
 async function main() {

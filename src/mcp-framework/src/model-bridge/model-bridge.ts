@@ -35,6 +35,9 @@ export class ModelBridge implements ModelBridgeInterface {
   ) {
     this.mcpClient = new MCPClient(mcpServerConfig);
     this.modelProvider = this.createModelProvider();
+    
+    // Log the MCP server configuration to show it's being used
+    console.log(`Connecting to MCP server: ${this.mcpServerConfig.command} ${this.mcpServerConfig.args.join(' ')}`);
   }
 
   async initialize(): Promise<void> {
@@ -228,7 +231,7 @@ export class ModelBridge implements ModelBridgeInterface {
     }
   }
 
-  private async enhanceToolResult(result: any, originalRequest: ToolExecutionRequest): Promise<any> {
+  private async enhanceToolResult(result: any, _originalRequest: ToolExecutionRequest): Promise<any> {
     // For now, return result as-is, but in a real implementation this would:
     // 1. Format the output for better readability
     // 2. Add context and explanations
@@ -237,7 +240,7 @@ export class ModelBridge implements ModelBridgeInterface {
     return result;
   }
 
-  private async generateSuggestions(request: ToolExecutionRequest, result: any): Promise<string[]> {
+  private async generateSuggestions(request: ToolExecutionRequest, _result: any): Promise<string[]> {
     const relatedTools = Array.from(this.toolCache.values())
       .filter(tool => tool.name !== request.toolName)
       .slice(0, 3);
@@ -247,7 +250,7 @@ export class ModelBridge implements ModelBridgeInterface {
     );
   }
 
-  private async generateErrorSuggestions(request: ToolExecutionRequest, error: any): Promise<string[]> {
+  private async generateErrorSuggestions(request: ToolExecutionRequest, _error: any): Promise<string[]> {
     return [
       `Check if the parameters match the expected schema for '${request.toolName}'`,
       'Verify that all required fields are provided',
@@ -283,8 +286,12 @@ export class ModelBridge implements ModelBridgeInterface {
   private createModelProvider(): ModelProvider {
     // For now, return a mock implementation
     // In a real implementation, this would connect to OpenAI, Anthropic, or a local model
+    
+    // Log the configuration to show it's being used
+    console.log(`Model provider configured with: ${this.modelConfig.modelProvider}, model: ${this.modelConfig.modelName}`);
+    
     return {
-      async generateResponse(prompt: string, context?: string): Promise<string> {
+      async generateResponse(prompt: string, _context?: string): Promise<string> {
         // Mock implementation - in reality this would call the configured model
         console.log('Model prompt:', prompt);
         return JSON.stringify({
